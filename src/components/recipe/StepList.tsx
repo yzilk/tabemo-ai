@@ -9,21 +9,34 @@ interface Props {
 
 export const StepList: React.FC<Props> = ({ steps, adjustments, onAdjustStep }) => (
   <div>
-    <div className="flex items-center gap-3 text-[11px] text-[#8a6a50]/70 font-mono tracking-widest uppercase mb-1">
+    <div className="flex items-center gap-3 text-[11px] text-[#8a6a50]/70 font-mono tracking-widest uppercase mb-5">
       調理手順
       <div className="flex-1 h-px bg-[#e8c4a0]/40" />
     </div>
+
     <div className="flex flex-col">
-      {steps.map((step) => {
+      {steps.map((step, index) => {
         const adj = adjustments[step.id];
+        const isLast = index === steps.length - 1;
         return (
-          <div key={step.id} className="flex gap-5 py-5 border-b border-[#e8c4a0]/30 last:border-none">
-            <div className="font-serif text-[32px] text-[#f4a56a]/40 min-w-[44px] leading-none pt-0.5">
-              {String(step.number).padStart(2, '0')}
+          <div key={step.id} className="flex gap-4">
+            {/* Timeline line + dot */}
+            <div className="flex flex-col items-center">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#f4a56a] to-[#d4845a] flex items-center justify-center text-white text-[12px] font-mono font-bold flex-shrink-0 shadow-sm shadow-[#d4845a]/20">
+                {step.number}
+              </div>
+              {!isLast && <div className="w-[2px] flex-1 bg-gradient-to-b from-[#e8c4a0]/60 to-[#e8c4a0]/20 my-1" />}
             </div>
 
-            <div className="flex-1 flex flex-col gap-1.5">
-              <div className="text-[15px] font-medium text-[#2d2016]">{step.title}</div>
+            {/* Content */}
+            <div className={`flex-1 flex flex-col gap-1.5 ${isLast ? 'pb-0' : 'pb-6'}`}>
+              <div className="flex items-center justify-between gap-2 mt-1">
+                <div className="text-[15px] font-medium text-[#2d2016]">{step.title}</div>
+                <div className="text-[11px] font-mono px-2.5 py-1 border border-[#e8c4a0]/60 text-[#8a6a50]/70 rounded-lg whitespace-nowrap">
+                  {step.durationMinutes} min
+                </div>
+              </div>
+
               <p className="text-[14px] text-[#5a3e2b]/75 leading-relaxed">{step.description}</p>
 
               {step.tips && (
@@ -74,10 +87,6 @@ export const StepList: React.FC<Props> = ({ steps, adjustments, onAdjustStep }) 
                   </button>
                 ))}
               </div>
-            </div>
-
-            <div className="text-[11px] font-mono px-2.5 py-1 border border-[#e8c4a0]/60 text-[#8a6a50]/70 rounded-lg self-start whitespace-nowrap">
-              {step.durationMinutes} min
             </div>
           </div>
         );

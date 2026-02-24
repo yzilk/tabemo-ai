@@ -21,34 +21,47 @@ const QUICK_ADJUSTMENTS: { type: AdjustmentType; label: string }[] = [
 
 export const RecipeHero: React.FC<Props> = ({ recipe, loading, isSaved, onAdjust, onSave }) => (
   <div className="flex flex-col gap-3">
-    <div className="relative rounded-2xl overflow-hidden h-[280px] flex items-end shadow-lg shadow-[#d4845a]/10">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#fde8d0] via-[#fad4b0] to-[#f4b488] flex items-center justify-center">
-        <span className="text-[96px] drop-shadow-lg">{recipe.emoji}</span>
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#2d2016]/70 to-transparent" />
+    {/* Hero card - テキスト主体 */}
+    <div className="relative bg-gradient-to-br from-[#fdf3eb] to-[#fde8d0] border border-[#e8c4a0]/40 rounded-2xl p-8 shadow-sm">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[#8a6a50]/70 bg-white/60 px-2.5 py-1 rounded-full border border-[#e8c4a0]/40">
+              AIレシピ
+            </span>
+            <span className="text-[11px] font-mono text-[#8a6a50]/70">{DIFFICULTY_LABELS[recipe.difficulty]}</span>
+          </div>
+          <h2 className="font-serif text-[36px] leading-tight text-[#2d2016] mb-2">{recipe.name}</h2>
+          <p className="text-[14px] text-[#5a3e2b]/70 leading-relaxed mb-5">{recipe.description}</p>
 
-      <div className="relative p-7 w-full">
-        <div className="font-serif text-[34px] leading-tight mb-1.5 text-white">{recipe.name}</div>
-        <p className="text-[13px] text-white/70 mb-2.5">{recipe.description}</p>
-        <div className="flex gap-4 flex-wrap text-[12px] text-white/70 font-mono">
-          <span>⏱ {recipe.totalMinutes}分</span>
-          <span>👥 {recipe.servings}人前</span>
-          <span>🔥 {recipe.nutrition.calories} kcal</span>
-          <span>⭐ {DIFFICULTY_LABELS[recipe.difficulty]}</span>
-          <span>{COST_MARKS[recipe.costLevel - 1]}</span>
+          {/* Stats row */}
+          <div className="flex gap-3 flex-wrap">
+            {[
+              { icon: '⏱', label: '調理時間', value: `${recipe.totalMinutes}分` },
+              { icon: '👥', label: '人数', value: `${recipe.servings}人前` },
+              { icon: '🔥', label: 'カロリー', value: `${recipe.nutrition.calories} kcal` },
+              { icon: '💰', label: 'コスト', value: COST_MARKS[recipe.costLevel - 1] },
+            ].map(({ icon, label, value }) => (
+              <div key={label} className="bg-white/60 rounded-xl px-3 py-2 border border-[#e8c4a0]/30">
+                <div className="text-[10px] font-mono text-[#8a6a50]/60 mb-0.5">{icon} {label}</div>
+                <div className="text-[14px] font-serif text-[#2d2016]">{value}</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <button
-        onClick={onSave}
-        className={`absolute top-4 right-4 w-9 h-9 rounded-full border backdrop-blur-sm flex items-center justify-center text-[18px] transition-all ${
-          isSaved
-            ? 'bg-[#f4a56a]/30 border-[#f4a56a] text-[#f4a56a]'
-            : 'bg-white/20 border-white/30 text-white/70 hover:border-[#f4a56a] hover:text-[#f4a56a]'
-        }`}
-      >
-        {isSaved ? '♥' : '♡'}
-      </button>
+        {/* Save button */}
+        <button
+          onClick={onSave}
+          className={`w-10 h-10 rounded-full border flex items-center justify-center text-[20px] transition-all flex-shrink-0 ${
+            isSaved
+              ? 'bg-[#f4a56a]/20 border-[#d4845a] text-[#d4845a]'
+              : 'bg-white/60 border-[#e8c4a0]/40 text-[#8a6a50]/50 hover:border-[#d4845a] hover:text-[#d4845a]'
+          }`}
+        >
+          {isSaved ? '♥' : '♡'}
+        </button>
+      </div>
     </div>
 
     {/* Quick adjust */}
