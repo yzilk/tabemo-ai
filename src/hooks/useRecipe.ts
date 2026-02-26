@@ -5,8 +5,8 @@ import { generateRecipe, adjustRecipe, adjustStep } from '../services/recipeServ
 const DEFAULT_INPUT: RecipeInput = {
   query: '',
   dietStyles: [],
-  servings: 2,
-  maxMinutes: 30,
+  servings: 1,        // 2→1
+  maxMinutes: 10,     // 30→10
   calorieRange: 'under600',
   skillLevel: 'beginner',
   excludeIngredients: [],

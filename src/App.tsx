@@ -31,7 +31,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#fdf8f3] text-[#2d2016]">
       <Header savedCount={savedRecipes.length} />
-      <main className="grid grid-cols-[400px_1fr] min-h-[calc(100vh-60px)]">
+      <main className="flex flex-col md:grid md:grid-cols-[400px_1fr] min-h-[calc(100vh-60px)]">
         <InputPanel
           input={input}
           loading={status === 'loading'}

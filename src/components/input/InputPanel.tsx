@@ -31,7 +31,7 @@ export const InputPanel: React.FC<Props> = ({ input, loading, onInputChange, onG
 
       <p className="text-[13px] text-[#8a6a50]/70 leading-relaxed font-mono">
         食材・気分・料理名をなんでも入力。<br />
-        AIがビジュアル付きレシピを生成します。
+        AIがレシピを生成します。
       </p>
 
       {/* Query */}
