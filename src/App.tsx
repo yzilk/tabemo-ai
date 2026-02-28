@@ -5,8 +5,13 @@ import { ResultPanel } from './components/recipe/ResultPanel';
 import { EmptyState, LoadingState, ErrorState } from './components/ui/States';
 
 export default function App() {
-  const { state, setInput, generate, adjust, adjustStepAction, saveRecipe } = useRecipe();
-  const { input, recipe, status, error, stepAdjustments, savedRecipes } = state;
+  const {
+    state, setInput, generate, adjust, adjustByIngredients, adjustStepAction,
+    deleteIngredient, replaceIngredient, suggestAlternatives,
+    saveRecipe,
+  } = useRecipe();
+
+  const { input, recipe, status, error, stepAdjustments, savedRecipes, ingredientSuggestions, ingredientEdited } = state;
   const savedIds = savedRecipes.map((r) => r.id);
 
   const renderResult = () => {
@@ -19,9 +24,15 @@ export default function App() {
           loading={status === 'loading'}
           savedIds={savedIds}
           stepAdjustments={stepAdjustments}
+          ingredientSuggestions={ingredientSuggestions}
+          ingredientEdited={ingredientEdited}
           onAdjust={adjust}
           onSave={saveRecipe}
           onAdjustStep={adjustStepAction}
+          onDeleteIngredient={deleteIngredient}
+          onSuggestIngredient={suggestAlternatives}
+          onReplaceIngredient={replaceIngredient}
+          onApplyIngredients={adjustByIngredients}
         />
       );
     }
@@ -38,7 +49,7 @@ export default function App() {
           onInputChange={setInput}
           onGenerate={generate}
         />
-        <div className="flex flex-col overflow-y-auto">
+        <div className="flex flex-col">
           {renderResult()}
         </div>
       </main>

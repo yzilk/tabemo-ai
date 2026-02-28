@@ -21,7 +21,7 @@ export const InputPanel: React.FC<Props> = ({ input, loading, onInputChange, onG
   };
 
   return (
-    <aside className="flex flex-col gap-6 p-8 bg-[#fff9f4] border-r border-[#e8c4a0]/40 h-[calc(100vh-60px)] sticky top-[60px] overflow-y-auto">
+    <aside className="flex flex-col gap-6 p-6 bg-[#fff9f4] border-b md:border-b-0 md:border-r border-[#e8c4a0]/40 md:h-[calc(100vh-60px)] md:sticky md:top-[60px] md:overflow-y-auto">
       <div>
         <h1 className="font-serif text-[28px] leading-tight text-[#2d2016]">
           今日は何を<br />
@@ -54,11 +54,10 @@ export const InputPanel: React.FC<Props> = ({ input, loading, onInputChange, onG
             <button
               key={style}
               onClick={() => toggleDietStyle(style)}
-              className={`px-3 py-1.5 rounded-full text-[12px] font-mono border transition-all ${
-                input.dietStyles.includes(style)
+              className={`px-3 py-1.5 rounded-full text-[12px] font-mono border transition-all ${input.dietStyles.includes(style)
                   ? 'bg-[#f4a56a]/20 border-[#d4845a] text-[#d4845a]'
                   : 'border-[#e8c4a0]/60 text-[#8a6a50]/70 hover:border-[#d4845a] hover:text-[#d4845a]'
-              }`}
+                }`}
             >
               {DIET_STYLE_LABELS[style]}
             </button>
@@ -95,11 +94,10 @@ export const InputPanel: React.FC<Props> = ({ input, loading, onInputChange, onG
             <button
               key={cal}
               onClick={() => onInputChange({ calorieRange: cal })}
-              className={`px-3 py-1.5 rounded-full text-[12px] font-mono border transition-all ${
-                input.calorieRange === cal
+              className={`px-3 py-1.5 rounded-full text-[12px] font-mono border transition-all ${input.calorieRange === cal
                   ? 'bg-[#f4a56a]/20 border-[#d4845a] text-[#d4845a]'
                   : 'border-[#e8c4a0]/60 text-[#8a6a50]/70 hover:border-[#d4845a] hover:text-[#d4845a]'
-              }`}
+                }`}
             >
               {CALORIE_LABELS[cal]}
             </button>
@@ -111,7 +109,7 @@ export const InputPanel: React.FC<Props> = ({ input, loading, onInputChange, onG
       <button
         onClick={onGenerate}
         disabled={loading}
-        className="mt-auto py-3.5 rounded-xl bg-gradient-to-br from-[#f4a56a] to-[#d4845a] text-white font-serif text-[17px] tracking-wider shadow-md shadow-[#d4845a]/20 transition-all hover:opacity-90 hover:-translate-y-px active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed"
+        className="mt-auto py-3.5 rounded-xl bg-gradient-to-br from-[#f4a56a] to-[#d4845a] text-white font-serif text-[17px] tracking-wider shadow-md shadow-[#d4845a]/20 transition-all hover:opacity-90 hover:-translate-y-px active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed sticky bottom-4"
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">

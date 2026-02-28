@@ -102,4 +102,16 @@ export interface RecipeState {
   error: string | null;
   stepAdjustments: Record<string, StepAdjustment>;
   savedRecipes: Recipe[];
+  ingredientSuggestions: Record<string, string[]>; // 追加
+}
+
+export interface RecipeState {
+  input: RecipeInput;
+  recipe: Recipe | null;
+  status: GenerateStatus;
+  error: string | null;
+  stepAdjustments: Record<string, StepAdjustment>;
+  savedRecipes: Recipe[];
+  ingredientSuggestions: Record<string, string[]>;
+  ingredientEdited: boolean; // 追加
 }

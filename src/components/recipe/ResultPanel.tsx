@@ -10,13 +10,21 @@ interface Props {
   loading: boolean;
   savedIds: string[];
   stepAdjustments: Record<string, StepAdjustment>;
+  ingredientSuggestions: Record<string, string[]>;
+  ingredientEdited: boolean;
   onAdjust: (type: AdjustmentType) => void;
   onSave: () => void;
   onAdjustStep: (stepId: string, type: 'detail' | 'simple') => void;
+  onDeleteIngredient: (id: string) => void;
+  onSuggestIngredient: (id: string, name: string) => void;
+  onReplaceIngredient: (id: string, newName: string, newAmount: string) => void;
+  onApplyIngredients: () => void;
 }
 
 export const ResultPanel: React.FC<Props> = ({
-  recipe, loading, savedIds, stepAdjustments, onAdjust, onSave, onAdjustStep,
+  recipe, loading, savedIds, stepAdjustments, ingredientSuggestions, ingredientEdited,
+  onAdjust, onSave, onAdjustStep,
+  onDeleteIngredient, onSuggestIngredient, onReplaceIngredient, onApplyIngredients,
 }) => {
   const [cookingMode, setCookingMode] = useState(false);
 
@@ -30,7 +38,7 @@ export const ResultPanel: React.FC<Props> = ({
         />
       )}
 
-      <div className="flex flex-col gap-7 p-10 animate-fade-up">
+      <div className="flex flex-col gap-7 p-6 md:p-10 animate-fade-up">
         <RecipeHero
           recipe={recipe}
           loading={loading}
@@ -40,8 +48,16 @@ export const ResultPanel: React.FC<Props> = ({
           onStartCooking={() => setCookingMode(true)}
         />
 
-        <div className="grid grid-cols-2 gap-5">
-          <IngredientsCard ingredients={recipe.ingredients} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <IngredientsCard
+            ingredients={recipe.ingredients}
+            suggestions={ingredientSuggestions}
+            ingredientEdited={ingredientEdited}
+            onDelete={onDeleteIngredient}
+            onSuggest={onSuggestIngredient}
+            onReplace={onReplaceIngredient}
+            onApplyIngredients={onApplyIngredients}
+          />
           <NutritionCard nutrition={recipe.nutrition} />
         </div>
 

@@ -80,3 +80,28 @@ export async function adjustStep(
     ? STEP_ADJUST_MOCK.moreDetail
     : STEP_ADJUST_MOCK.simpler;
 }
+export async function suggestIngredientAlternatives(ingredientName: string): Promise<string[]> {
+  await sleep(800);
+  // TODO: Gemini API 実装
+  const mockSuggestions: Record<string, string[]> = {
+    '鶏もも肉': ['鶏むね肉', '豚こま肉', '豆腐'],
+    'トマト（中）': ['トマト缶', 'ミニトマト', 'パプリカ'],
+    'にんにく': ['にんにくチューブ', '玉ねぎ', 'しょうが'],
+    'バジル': ['パセリ', '大葉', 'オレガノ'],
+    'オリーブオイル': ['サラダ油', 'ごま油', 'バター'],
+  };
+  return mockSuggestions[ingredientName] ?? ['代替食材A', '代替食材B', '代替食材C'];
+}
+
+// 食材変更を反映した軽微な修正
+// Gemini実装時のプロンプト方針:
+// 「以下のレシピの食材リストが変更されました。手順と栄養情報を最小限の変更で更新してください。レシピの全体的なコンセプトは維持してください。」
+export async function adjustRecipeByIngredients(recipe: Recipe): Promise<Recipe> {
+  await sleep(MOCK_DELAY);
+  return {
+    ...recipe,
+    id: `recipe-${Date.now()}`,
+    createdAt: new Date(),
+    aiComment: '食材の変更を反映してレシピを微調整しました。手順はほぼそのままで、食材に合わせた細かい調整を加えています。',
+  };
+}
